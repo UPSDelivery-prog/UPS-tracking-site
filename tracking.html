@@ -1,32 +1,42 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UPS - Tracking</title>
+  <title>UPS Tracking</title>
 
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f7f3e8; /* UPS Light Beige */
+      background: #f7f3ee;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* UPS Header */
+    header {
+      background: #351c15; /* UPS dark brown */
       padding: 20px;
+      text-align: center;
+    }
+
+    header img {
+      height: 70px;
     }
 
     .container {
       max-width: 500px;
-      margin: auto;
+      margin: 30px auto;
       background: white;
       padding: 25px;
       border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-      border: 2px solid #372213; /* UPS brown border */
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
 
     h1 {
       text-align: center;
-      color: #372213; /* UPS brown */
+      color: #351c15;
       margin-bottom: 20px;
-      font-weight: bold;
     }
 
     input {
@@ -34,7 +44,7 @@
       padding: 12px;
       font-size: 16px;
       border-radius: 8px;
-      border: 1px solid #a18c78; /* UPS warm neutral */
+      border: 1px solid #aaa;
       margin-bottom: 15px;
     }
 
@@ -42,8 +52,8 @@
       width: 100%;
       padding: 12px;
       font-size: 16px;
-      background: #FFB500; /* UPS gold */
-      color: #372213; /* UPS dark brown text */
+      background: #ffb500; /* UPS yellow/gold */
+      color: #351c15;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -57,30 +67,30 @@
     .result-box {
       margin-top: 20px;
       padding: 15px;
-      background: #f0e6d6; /* Light gold tint */
+      background: #fff4d6;
       border-radius: 10px;
-      border-left: 5px solid #372213;
+      border-left: 5px solid #ffb500;
     }
 
     .stage-box {
       margin-top: 10px;
       padding: 10px;
-      background: #fff4d2; /* Soft gold */
+      background: #fff1c1;
       border-radius: 8px;
-      border-left: 5px solid #FFB500; /* UPS gold */
     }
 
     .status-text {
       font-size: 18px;
       margin-bottom: 10px;
       font-weight: bold;
-      color: #372213;
+      color: #351c15;
     }
 
+    /* Progress bar */
     .progress-bar {
       width: 100%;
       height: 10px;
-      background: #e5d7c4; /* UPS warm beige */
+      background: #ead9b5;
       border-radius: 5px;
       overflow: hidden;
       margin-top: 10px;
@@ -88,24 +98,49 @@
 
     .progress-fill {
       height: 100%;
-      background: #FFB500; /* UPS gold */
+      background: #ffb500;
       width: 0%;
       transition: width 0.6s ease;
+    }
+
+    /* UPS Footer */
+    footer {
+      background: #351c15;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #ffb500;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>UPS Tracking</h1>
+  <!-- UPS Header with Logo -->
+  <header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/UPS_Logo_Shield_2017.svg" alt="UPS Logo">
+  </header>
 
-    <input type="text" id="trackingInput" placeholder="Enter your tracking number">
+  <div class="container">
+    <h1>UPS Package Tracking</h1>
+
+    <input type="text" id="trackingInput" placeholder="Enter your UPS tracking number">
 
     <button onclick="trackPackage()">Track Package</button>
 
     <div id="result"></div>
   </div>
 
+  <!-- UPS Footer -->
+  <footer>
+    © 2025 UPS | <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a><br>
+    United Parcel Service – Delivering packages worldwide.
+  </footer>
 
   <script>
     async function trackPackage() {
@@ -113,7 +148,7 @@
       const resultBox = document.getElementById("result");
 
       if (!input) {
-        resultBox.innerHTML = "<p>Please enter a tracking number.</p>";
+        resultBox.innerHTML = "<p style='color:red;'>Please enter a tracking number.</p>";
         return;
       }
 
@@ -138,4 +173,20 @@
             <p class="status-text">Status: ${status}</p>
 
             <div class="stage-box">
-              <strong>Current Stage: ${currentStage}</strong><   
+              <strong>Current Stage: ${currentStage}</strong><br>
+              ${stageText}
+            </div>
+
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:${percentage}%"></div>
+            </div>
+          </div>
+        `;
+      } catch (error) {
+        resultBox.innerHTML = "<p>Error loading tracking data.</p>";
+      }
+    }
+  </script>
+
+</body>
+</html>

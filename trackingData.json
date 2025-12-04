@@ -1,14 +1,46 @@
 {
-  "UPS98451GH77": {
-    "status": "Shipment Registered at UPS Facility",
-    "stage": 1
+  "S34FJOHN4DDDE": {
+    "status": "Package received at origin facility",
+    "currentStage": 1,
+    "stages": [
+      "Package received at UPS facility",
+      "Package processed",
+      "Departed from origin facility",
+      "In transit to destination",
+      "Arrived at destination facility",
+      "Out for delivery",
+      "Delivery attempt",
+      "Delivered successfully"
+    ]
   },
-  "UPS77291KL55": {
-    "status": "Shipment Registered at UPS Facility",
-    "stage": 1
+
+  "UPS4492039933": {
+    "status": "In transit to destination",
+    "currentStage": 4,
+    "stages": [
+      "Package received at UPS facility",
+      "Package processed",
+      "Departed from origin facility",
+      "In transit to destination",
+      "Arrived at destination facility",
+      "Out for delivery",
+      "Delivery attempt",
+      "Delivered successfully"
+    ]
   },
-  "UPS56003RT88": {
-    "status": "Shipment Registered at UPS Facility",
-    "stage": 1
+
+  "1Z88X3W94NE22": {
+    "status": "Out for delivery today",
+    "currentStage": 6,
+    "stages": [
+      "Package received at UPS facility",
+      "Package processed",
+      "Departed from origin facility",
+      "In transit to destination",
+      "Arrived at destination facility",
+      "Out for delivery",
+      "Delivery attempt",
+      "Delivered successfully"
+    ]
   }
 }

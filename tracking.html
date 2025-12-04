@@ -3,157 +3,151 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Package Tracking</title>
+  <title>SwiftDrop Delivery - Tracking</title>
 
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background: #ffffff;
-    }
-
-    header {
-      background: #333;
-      color: #fff;
+      background: #f4f7ff;
       padding: 20px;
-      font-size: 24px;
-      text-align: center;
-      font-weight: bold;
     }
 
-    .tracking-box {
-      background: #222;
-      color: #fff;
-      max-width: 450px;
-      margin: 40px auto;
-      padding: 30px;
-      border-radius: 10px;
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #0053ff;
+      margin-bottom: 20px;
     }
 
     input {
       width: 100%;
       padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 5px;
+      font-size: 16px;
+      border-radius: 8px;
       border: 1px solid #ccc;
+      margin-bottom: 15px;
     }
 
     button {
       width: 100%;
       padding: 12px;
-      background: #FFB500;
-      color: #000;
-      border: none;
-      border-radius: 5px;
       font-size: 16px;
-      font-weight: bold;
+      background: #0053ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
     }
 
-    .stage-wrapper {
-      display: none;
+    button:hover {
+      background: #003fcc;
+    }
+
+    .result-box {
       margin-top: 20px;
-      padding-left: 15px;
-      border-left: 4px solid #FFB500;
+      padding: 15px;
+      background: #eef3ff;
+      border-radius: 10px;
     }
 
-    ul.stages {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    .stage-box {
+      margin-top: 10px;
+      padding: 10px;
+      background: #dbe6ff;
+      border-radius: 8px;
+      border-left: 5px solid #0053ff;
     }
 
-    ul.stages li {
-      margin: 15px 0;
-      padding: 10px 15px;
-      background: #444;
-      border-radius: 5px;
-      display: none;  
-    }
-
-    ul.stages li.active {
-      background: #FFB500;
-      color: #000;
-      display: block;
+    .status-text {
+      font-size: 18px;
+      margin-bottom: 10px;
       font-weight: bold;
+      color: #0037b3;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: #d0d7f5;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #0053ff;
+      width: 0%;
+      transition: width 0.6s ease;
     }
   </style>
 </head>
-
 <body>
-<header>Package Tracking</header>
 
-<div class="tracking-box">
-  <h3>Track Your Package</h3>
-  <input type="text" id="trackNumber" placeholder="Enter Tracking Number" />
-  <button onclick="trackPackage()">Track</button>
+  <div class="container">
+    <h1>SwiftDrop Delivery Tracking</h1>
 
-  <p id="result" style="margin-top:15px; font-weight:bold;"></p>
+    <input type="text" id="trackingInput" placeholder="Enter your tracking number">
 
-  <div class="stage-wrapper" id="stageWrapper">
-    <ul class="stages">
-      <li id="stage1">1. Received at Facility</li>
-      <li id="stage2">2. Package Registered</li>
-      <li id="stage3">3. Picked Up</li>
-      <li id="stage4">4. In Transit</li>
-      <li id="stage5">5. Arrived Destination Country</li>
-      <li id="stage6">6. Customs Clearance</li>
-      <li id="stage7">7. Out for Delivery</li>
-      <li id="stage8">8. Delivered</li>
-    </ul>
+    <button onclick="trackPackage()">Track Package</button>
+
+    <div id="result"></div>
   </div>
-</div>
 
-<script>
-async function trackPackage() {
-  const num = document.getElementById('trackNumber').value.trim();
-  const result = document.getElementById('result');
 
-  if (num === "") {
-    result.textContent = "Please enter a valid tracking number.";
-    result.style.color = "yellow";
-    return;
-  }
+  <script>
+    async function trackPackage() {
+      const input = document.getElementById("trackingInput").value.trim();
+      const resultBox = document.getElementById("result");
 
-  try {
-    const response = await fetch('./trackingData.json');
-    const data = await response.json();
+      if (!input) {
+        resultBox.innerHTML = "<p>Please enter a tracking number.</p>";
+        return;
+      }
 
-    if (!data[num]) {
-      result.textContent = "Tracking number not found.";
-      result.style.color = "yellow";
-      document.getElementById('stageWrapper').style.display = 'none';
-      return;
+      try {
+        const response = await fetch("trackingData.json");
+        const data = await response.json();
+
+        if (!data[input]) {
+          resultBox.innerHTML = "<p style='color:red;'>Tracking number not found.</p>";
+          return;
+        }
+
+        const item = data[input];
+        const currentStage = item.currentStage;
+        const status = item.status;
+        const stageText = item.stages[currentStage - 1];
+
+        const percentage = ((currentStage - 1) / (item.stages.length - 1)) * 100;
+
+        resultBox.innerHTML = `
+          <div class="result-box">
+            <p class="status-text">Status: ${status}</p>
+
+            <div class="stage-box">
+              <strong>Current Stage: ${currentStage}</strong><br>
+              ${stageText}
+            </div>
+
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:${percentage}%"></div>
+            </div>
+          </div>
+        `;
+      } catch (error) {
+        resultBox.innerHTML = "<p>Error loading tracking data.</p>";
+      }
     }
-
-    const stage = data[num].stage;
-
-    result.style.color = "white";
-    result.textContent = "Current Stage:";  /* 🔥 FIXED — no numbers */
-
-    document.getElementById("stageWrapper").style.display = "block";
-    highlightStage(stage);
-
-  } catch (error) {
-    result.textContent = "Error loading tracking data.";
-    console.error(error);
-  }
-}
-
-function highlightStage(current) {
-  for (let i = 1; i <= 8; i++) {
-    const el = document.getElementById("stage" + i);
-
-    el.style.display = "none";
-    el.classList.remove("active");
-
-    if (i === current) {
-      el.style.display = "block";
-      el.classList.add("active");
-    }
-  }
-}
-</script>
+  </script>
 
 </body>
 </html>

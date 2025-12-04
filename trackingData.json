@@ -1,18 +1,14 @@
 {
-  "S34FJOHN4DDDE": {
-    "status": "Registered and at UPS Facilities",
+  "UPS98451GH77": {
+    "status": "Shipment Registered at UPS Facility",
     "stage": 1
   },
-  "S34FJOHN4DDDE": {
-    "status": "In Transit",
-    "stage": 2
+  "UPS77291KL55": {
+    "status": "Shipment Registered at UPS Facility",
+    "stage": 1
   },
-  "S34FJOHN4DDDE": {
-    "status": "Out for Delivery",
-    "stage": 3
-  },
-  "UPS99002FF1": {
-    "status": "Held by Customs",
-    "stage": 4
+  "UPS56003RT88": {
+    "status": "Shipment Registered at UPS Facility",
+    "stage": 1
   }
 }

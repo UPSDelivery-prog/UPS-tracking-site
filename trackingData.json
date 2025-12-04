@@ -35,3 +35,12 @@
     "stages": [
       "Package received at UPS facility",
       "Package processed — Madrid, Spain",
+      "Departed from origin facility",
+      "In transit to destination",
+      "Arrived at destination facility",
+      "Out for delivery",
+      "Delivery attempt",
+      "Delivered successfully"
+    ]
+  }
+}

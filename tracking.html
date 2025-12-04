@@ -11,7 +11,7 @@ async function trackPackage() {
 
   // Fetch trackingData.json from GitHub
   try {
-    const response = await fetch('trackingData.json');
+    const response = await fetch('./trackingData.json');  // ✅ FIXED FOR GITHUB PAGES
     const data = await response.json();
 
     if (!data[num]) {

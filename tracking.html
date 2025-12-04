@@ -68,13 +68,13 @@
       padding: 10px 15px;
       background: #444;
       border-radius: 5px;
-      display: none;      /* 🔥 hide all by default */
+      display: none;  
     }
 
     ul.stages li.active {
       background: #FFB500;
       color: #000;
-      display: block;     /* 🔥 show ONLY current stage */
+      display: block;
       font-weight: bold;
     }
   </style>
@@ -129,7 +129,7 @@ async function trackPackage() {
     const stage = data[num].stage;
 
     result.style.color = "white";
-    result.textContent = "Current Stage: " + stage + " of 8";
+    result.textContent = "Current Stage:";  /* 🔥 FIXED — no numbers */
 
     document.getElementById("stageWrapper").style.display = "block";
     highlightStage(stage);
@@ -140,16 +140,13 @@ async function trackPackage() {
   }
 }
 
-/* ⭐ SHOW ONLY ONE STAGE AT A TIME */
 function highlightStage(current) {
   for (let i = 1; i <= 8; i++) {
     const el = document.getElementById("stage" + i);
 
-    // hide all stages
     el.style.display = "none";
     el.classList.remove("active");
 
-    // show only the current stage
     if (i === current) {
       el.style.display = "block";
       el.classList.add("active");

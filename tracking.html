@@ -1,3 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UPS Tracking</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #1a1a1a;
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    input {
+      padding: 12px;
+      width: 260px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+    }
+
+    button {
+      padding: 12px 20px;
+      background: #ffcc00;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 20px;
+      color: white;
+      font-size: 20px;
+    }
+
+    .stage {
+      width: 200px;
+      height: 6px;
+      background: #555;
+      margin: 10px auto;
+      border-radius: 5px;
+    }
+
+    .active {
+      background: #ffcc00 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>UPS Package Tracking</h1>
+
+    <input type="text" id="trackNumber" placeholder="Enter Tracking Number" />
+    <button onclick="trackPackage()">Track</button>
+
+    <div id="result"></div>
+
+    <!-- Tracking Stages -->
+    <div id="stageWrapper" style="display:none; margin-top:25px;">
+      <div id="stage1" class="stage"></div>
+      <div id="stage2" class="stage"></div>
+      <div id="stage3" class="stage"></div>
+      <div id="stage4" class="stage"></div>
+    </div>
+  </div>
+
 <script>
 async function trackPackage() {
   const num = document.getElementById('trackNumber').value.trim();
@@ -9,9 +84,8 @@ async function trackPackage() {
     return;
   }
 
-  // Fetch trackingData.json from GitHub
   try {
-    const response = await fetch('./trackingData.json');  // ✅ FIXED FOR GITHUB PAGES
+    const response = await fetch('./trackingData.json');
     const data = await response.json();
 
     if (!data[num]) {
@@ -26,9 +100,7 @@ async function trackPackage() {
     result.style.color = "white";
     result.textContent = packageInfo.status;
 
-    // Show stages
     document.getElementById("stageWrapper").style.display = "block";
-
     highlightStage(packageInfo.stage);
 
   } catch (error) {
@@ -47,3 +119,6 @@ function highlightStage(stage) {
   });
 }
 </script>
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 {
   "S34FJOHN4DDDE": {
     "status": "Package received at origin facility",
-    "currentStage": 2,
+    "currentStage":1,
     "stages": [
       "Package received at UPS facility",
       "Package Registered in transit madrid",

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial=1.0" />
+  <title>UPS Delivery - Tracking</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #ffffff; }
+    header { background: #351C15; color: #FFB500; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+    nav a { color: white; margin-left: 20px; text-decoration: none; font-weight: bold; }
+
+    .tracking-box { background: #351C15; max-width: 450px; margin: 40px auto; padding: 30px; border-radius: 10px; color: white; }
+    input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; }
+    button { width: 100%; padding: 12px; background: white; color: #351C15; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-weight: bold; }
+
+    .stage-wrapper { position: relative; padding-left: 30px; margin-top: 20px; display:none; }
+    .stage-wrapper::before {
+      content: "";
+      position: absolute;
+      left: 12px;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: #FFB500;
+      border-radius: 2px;
+    }
+
+    ul.stages { list-style: none; padding: 0; margin: 0; }
+    ul.stages li {
+      margin: 20px 0;
+      padding: 10px 15px;
+      border-radius: 6px;
+      background: #4A2A20;
+      opacity: 0.4;
+      transition: 0.5s;
+      position: relative;
+    }
+
+    ul.stages li::before {
+      content: "";
+      position: absolute;
+      left: -18px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      background: #4A2A20;
+      border: 2px solid #FFB500;
+      border-radius: 50%;
+    }
+
+    ul.stages li.active {
+      opacity: 1;
+      background: #FFB500;
+      color: #351C15;
+      font-weight: bold;
+    }
+
+    ul.stages li.active::before {
+      background: #FFB500;
+    }
+
+    footer { background: #351C15; color: white; padding: 15px; text-align: center; margin-top: 40px; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>UPS Delivery</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="tracking.html">Tracking</a>
+    <a href="contact.html">Contact</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<section id="tracking">
+  <div class="tracking-box">
+    <h3>Track Your Package</h3>
+    <input type="text" id="trackNumber" value="S34FJOHN4DDDE" />
+    <button onclick="trackPackage()">Track</button>
+    <p id="result" style="margin-top:15px; font-weight:bold;"></p>
+
+    <div class="stage-wrapper" id="stageWrapper">
+      <ul class="stages">
+        <li id="stage1">🟡 Registered and Package at UPS Facility</li>
+        <li id="stage2">🟠 In Transit</li>
+        <li id="stage3">🔵 Out for Delivery</li>
+        <li id="stage4">🟢 Delivered</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2025 UPS Delivery. All Rights Reserved.
+</footer>
+
+<script>
+  function highlightStage(stage) {
+    const stages = ["stage1", "stage2", "stage3", "stage4"];
+    stages.forEach((s, index) => {
+      const el = document.getElementById(s);
+      if (index < stage) el.classList.add("active");
+      else el.classList.remove("active");
+    });
+  }
+
+  function trackPackage() {
+    const num = document.getElementById('trackNumber').value.trim();
+    const result = document.getElementById('result');
+
+    if (num === '') {
+      result.textContent = 'Please enter a valid tracking number.';
+      result.style.color = 'yellow';
+      return;
+    }
+
+    result.style.color = 'white';
+    result.textContent = 'Tracking info for ' + num + ':';
+    document.getElementById('stageWrapper').style.display = 'block';
+
+    const currentStage = Math.floor(Math.random() * 4) + 1;
+    highlightStage(currentStage);
+  }
+</script>
+</body>
+</html>

@@ -4,7 +4,7 @@
     "currentStage": 2,
     "stages": [
       "Package received at UPS facility",
-      "Package processed Madrid Spain🇪🇸",
+      "Package processed — Madrid, Spain",
       "Departed from origin facility",
       "In transit to destination",
       "Arrived at destination facility",
@@ -19,7 +19,7 @@
     "currentStage": 4,
     "stages": [
       "Package received at UPS facility",
-      "Package Registered Madrid 🇪🇸",
+      "Package processed — Madrid, Spain",
       "Departed from origin facility",
       "In transit to destination",
       "Arrived at destination facility",
@@ -31,16 +31,7 @@
 
   "1Z88X3W94NE22": {
     "status": "Out for delivery today",
-    "currentStage": 6,
+       "currentStage": 6,
     "stages": [
       "Package received at UPS facility",
-      "Package processed",
-      "Departed from origin facility",
-      "In transit to destination",
-      "Arrived at destination facility",
-      "Out for delivery",
-      "Delivery attempt",
-      "Delivered successfully"
-    ]
-  }
-}
+      "Package processed — Madrid, Spain",

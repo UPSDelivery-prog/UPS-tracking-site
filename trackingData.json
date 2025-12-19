@@ -15,14 +15,14 @@
   },
 
   "UPS4492039933": {
-    "status": "Shipment information received",
-    "currentStage": 1,
+    "status": "Arrived at Ups Facility - USA",
+    "currentStage": 5,
     "stages": [
       "Package received at UPS facility",
       "Package processed — Madrid, Spain",
       "Departed from origin facility",
       "In transit to destination",
-      "Arrived at destination facility",
+      "Arrived at UPS facility - USA",
       "Out for delivery",
       "Delivery attempt",
       "Delivered successfully"
